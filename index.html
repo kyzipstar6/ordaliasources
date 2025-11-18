@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codespace Starter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <h1>Ordalia Codespace</h1>
+    </header>
+
+
+    <section class="doc-tools">
+      <h2>Document tools</h2>
+
+      <div class="controls">
+        <label class="control">
+          <span>Upload document</span>
+          <input type="file" id="fileInput" accept=".txt,.md,.markdown,.json,.html,.css,.js,.csv,.log,.xml,.rtf">
+        </label>
+        <label class="control" for="fileName">
+          <span>Save as</span>
+          <input type="text" id="fileName" value="document.txt" placeholder="document.txt">
+        </label>
+      </div>
+
+      <textarea id="editor" rows="16" placeholder="Write your document here..."></textarea>
+
+      <div class="meta">
+        <label class="control small" for="lang">
+          <span>Language (for coloring)</span>
+          <select id="lang">
+            <option value="auto" selected>Auto (by filename)</option>
+            <option value="js">JavaScript/TypeScript</option>
+            <option value="py">Python</option>
+            <option value="java">Java</option>
+            <option value="json">JSON</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="txt">Plain text</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="code-preview" aria-label="Syntax highlighted preview">
+        <pre><code id="codePreview">When you start writing or load a document, it will be displayed here with indentation, coloring, and syntax highlighting.</code></pre>
+      </div>
+
+      <div class="actions">
+        <button id="newDoc" type="button">New document</button>
+        <button id="escapeDoc" type="button">Escape text</button>
+        <button id="saveDoc" type="button" class="primary">Save locally</button>
+      </div>
+
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <section class="ide-cta">
+      <div class="ide-copy">
+        <h2>Try the IDE</h2>
+        <p>Try our desktop application for free. No installation required. Requires Windows and Java.</p>
+      </div>
+      <a id="downloadIde" class="ide-button" href="#" download>Download IDE</a>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
