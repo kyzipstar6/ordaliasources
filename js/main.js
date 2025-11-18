@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const IDE_DOWNLOAD_URL = "https://example.com/your-ide-download.zip"; // Replace with your actual IDE download URL.
+  const DEFAULT_SAMPLE = `public class Main {
+    public static void main(String args[]){
+        System.out.println("Welcome to the sources of Ordalia! Symbols: < > & \" ' \\t \\n \\u2764");
+    }
+}`;
 
   const hero = document.querySelector(".hero");
   const fileInput = document.getElementById("fileInput");
@@ -7,9 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const editor = document.getElementById("editor");
   const codePreview = document.getElementById("codePreview");
   const langSelect = document.getElementById("lang");
+  const fontSelect = document.getElementById("fontSelect");
+  const fontSizeSelect = document.getElementById("fontSizeSelect");
   const status = document.getElementById("status");
   const newDocBtn = document.getElementById("newDoc");
   const escapeDocBtn = document.getElementById("escapeDoc");
+  const runCodeBtn = document.getElementById("runCode");
+  const terminalOutput = document.getElementById("terminalOutput");
+  const clearTerminalBtn = document.getElementById("clearTerminal");
   const saveDocBtn = document.getElementById("saveDoc");
   const downloadIdeBtn = document.getElementById("downloadIde");
 
@@ -24,6 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!status) return;
     status.textContent = message;
     status.className = `status ${type}`;
+  };
+
+  const appendTerminal = (message, type = "info") => {
+    if (!terminalOutput) return;
+    const line = document.createElement("div");
+    line.className = `term-line ${type}`;
+    line.innerHTML = escapeHtml(message);
+    terminalOutput.appendChild(line);
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  };
+
+  const clearTerminal = () => {
+    if (!terminalOutput) return;
+    terminalOutput.innerHTML = "";
+    appendTerminal("$ Ready. Click \"Run in terminal\" to execute.", "muted");
+  };
+
+  const applyFontPrefs = () => {
+    const fontFamily = fontSelect?.value || "'Fira Code', monospace";
+    const fontSize = `${fontSizeSelect?.value || 16}px`;
+    if (codePreview) {
+      codePreview.style.fontFamily = fontFamily;
+      codePreview.style.fontSize = fontSize;
+    }
+    if (editor) {
+      editor.style.fontFamily = fontFamily;
+      editor.style.fontSize = fontSize;
+    }
   };
 
   const escapeHtml = (text = "") =>
@@ -119,6 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return highlightPython(esc);
       case "java":
         return highlightJava(esc);
+      case "php":
+        return highlightJS(esc); // reuse JS-like highlighting for PHP basics
       case "json":
         return highlightJSON(esc);
       case "css":
@@ -136,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (name.endsWith(".js") || name.endsWith(".ts")) return "js";
     if (name.endsWith(".py")) return "py";
     if (name.endsWith(".java")) return "java";
+    if (name.endsWith(".php")) return "php";
     if (name.endsWith(".json")) return "json";
     if (name.endsWith(".html") || name.endsWith(".htm")) return "html";
     if (name.endsWith(".css")) return "css";
@@ -144,8 +185,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const updatePreview = () => {
     if (!codePreview || !editor) return;
+    applyFontPrefs();
     const lang = detectLang();
     codePreview.innerHTML = highlight(editor.value || "", lang);
+  };
+
+  if (editor && editor.value.trim() === "") {
+    editor.value = DEFAULT_SAMPLE;
+    if (fileNameInput) fileNameInput.value = "Main.java";
+  }
+
+  const runInTerminal = async () => {
+    if (!editor) return;
+    const lang = detectLang();
+    const name = (fileNameInput?.value || "document").trim();
+    appendTerminal(`$ run ${name || "document"}`, "muted");
+
+    if (lang === "js") {
+      try {
+        const fn = new Function(`return (async () => {\n${editor.value}\n})();`);
+        const result = await fn();
+        appendTerminal(String(result ?? "undefined"), "info");
+      } catch (err) {
+        appendTerminal(String(err), "error");
+      }
+    } else if (lang === "py") {
+      appendTerminal("Python execution simulated in browser (no interpreter available).", "info");
+      appendTerminal(">>> " + (editor.value.split("\n")[0] || "print(...)"), "muted");
+    } else if (lang === "java") {
+      appendTerminal("Java execution simulated. Consider running via IDE/CLI.", "info");
+      appendTerminal("javac Main.java && java Main", "muted");
+    } else if (lang === "php") {
+      appendTerminal("PHP execution simulated in browser. Use a PHP runtime to run this script.", "info");
+      appendTerminal("php script.php", "muted");
+    } else {
+      appendTerminal(`Executed ${name || "document"} as ${lang}. (Preview only; non-JS execution is simulated.)`, "info");
+    }
+
+    document.getElementById("terminal")?.scrollIntoView({ behavior: "smooth" });
   };
 
   fileInput?.addEventListener("change", (event) => {
@@ -198,6 +275,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setStatus("Escaped special characters in the textarea.");
   });
 
+  runCodeBtn?.addEventListener("click", runInTerminal);
+  clearTerminalBtn?.addEventListener("click", clearTerminal);
+
   downloadIdeBtn?.addEventListener("click", (e) => {
     if (!downloadIdeBtn) return;
     if (IDE_DOWNLOAD_URL.includes("example.com")) {
@@ -226,5 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   langSelect?.addEventListener("change", updatePreview);
   fileNameInput?.addEventListener("input", updatePreview);
+  fontSelect?.addEventListener("change", updatePreview);
+  fontSizeSelect?.addEventListener("change", updatePreview);
   updatePreview();
 });
