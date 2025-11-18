@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Codespace Starter</title>
+  <title>Ordalia Sources Codespace</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,35 +27,73 @@
         </label>
       </div>
 
-      <textarea id="editor" rows="16" placeholder="Write your document here..."></textarea>
+      
 
+      <textarea id="editor" rows="16" placeholder="Write your document here..."></textarea>
+      <div class="toolbar">
+        <button id="runCode" type="button" class="primary">Run in terminal</button>
+      </div>
       <div class="meta">
         <label class="control small" for="lang">
           <span>Language (for coloring)</span>
           <select id="lang">
-            <option value="auto" selected>Auto (by filename)</option>
             <option value="js">JavaScript/TypeScript</option>
             <option value="py">Python</option>
             <option value="java">Java</option>
+            <option value="php">PHP</option>
             <option value="json">JSON</option>
             <option value="html">HTML</option>
             <option value="css">CSS</option>
             <option value="txt">Plain text</option>
           </select>
         </label>
+        <label class="control small" for="fontSelect">
+          <span>Font (preview/editor)</span>
+          <select id="fontSelect">
+            <option value="'Fira Code', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" selected>Fira Code</option>
+            <option value="'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">JetBrains Mono</option>
+            <option value="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">System Mono</option>
+            <option value="'Cascadia Code', 'Fira Code', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">Cascadia Code</option>
+            <option value="'Source Code Pro', 'Fira Code', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">Source Code Pro</option>
+            <option value="'IBM Plex Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">IBM Plex Mono</option>
+            <option value="'Inconsolata', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">Inconsolata</option>
+          </select>
+        </label>
+        <label class="control small" for="fontSizeSelect">
+          <span>Text size</span>
+          <select id="fontSizeSelect">
+            <option value="14">14 px</option>
+            <option value="16" selected>16 px</option>
+            <option value="18">18 px</option>
+            <option value="20">20 px</option>
+          </select>
+        </label>
       </div>
 
       <div class="code-preview" aria-label="Syntax highlighted preview">
-        <pre><code id="codePreview">When you start writing or load a document, it will be displayed here with indentation, coloring, and syntax highlighting.</code></pre>
+        <pre><code id="codePreview">public class Main {
+    public static void main(String args[]){
+        System.out.println("Welcome to the sources of Ordalia! When you start writing or load a document, it will be displayed here with indentation, coloring, and syntax highlighting.");
+    }
+}</code></pre>
       </div>
 
       <div class="actions">
         <button id="newDoc" type="button">New document</button>
-        <button id="escapeDoc" type="button">Escape text</button>
         <button id="saveDoc" type="button" class="primary">Save locally</button>
       </div>
 
       <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <section id="terminal" class="terminal">
+      <div class="terminal-header">
+        <h2>Terminal</h2>
+        <button id="clearTerminal" type="button">Clear</button>
+      </div>
+      <div class="terminal-body" id="terminalOutput">
+        <div class="term-line muted">$ Ready. Click "Run in terminal" to execute.</div>
+      </div>
     </section>
 
     <section class="ide-cta">
