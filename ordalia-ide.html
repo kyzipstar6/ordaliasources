@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordalia Codespace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman';
+        }
+
+        body {
+            background: linear-gradient(135deg, #bc2980, #78d0ce);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .slides-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 0;
+            scrollbar-width: none;
+        }
+
+        .slides-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-content {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-dots {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: #fff;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+
+        .buy-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .buy-button:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .slide-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ordalia Codespace</h1>
+            <p class="tagline">Quick light code editor conceived mainly for Java.</p>
+        </header>
+
+        <div class="slides-container" id="slidesContainer">
+            <!-- Slide 1: Introduction -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2>Quick editions</h2>
+                    <p>Not anymore having to wait minutes for the application to start. In just 30 seconds most computers are able to load a file..</p>
+                    <div class="image-placeholder">
+                        <img src="pc/0.png"" alt="Create chart upon prompt">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-content">
+                    <h2>Powerful java tools</h2>
+                    <p>CssTester, JavaPackager, Code Translator... The user can use them all in this free version.</p>
+                    <div class="image-placeholder">
+                        <img src="pc/1.png" alt="Many sorts of graphs">
+                    </div>
+
+                </div>
+            </div>
+
+           
+</div>
+
+
+        <div class="nav-dots" id="navDots">
+            <!-- Dots will be generated by JavaScript -->
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Your alternative for java, js, python or html.</h3>
+                <p>Toggle easily your language..</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Toggle style easily.</h3>
+                <p>You don't have anymore to heat up your head modifyilng raw-css stylesheets. Just toggle Theme..</p>
+            </div>
+           
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to boost your apis?</h2>
+            <p>Download Ordalia Codespace completelly free now.</p>
+            <a href="https://drive.google.com/file/d/1LKCAhmcXkTP_pAP3NlIjW_uy7AEFmb61/view?usp=drive_link" class="buy-button">Download limited application.</a>
+              <p><small>No payment required for the free version.</small></p>
+           
+
+        </div>
+        <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('buy-button');
+    btn.addEventListener('click', (e) => {
+      // Skip if already a real link (no #)
+      if (!btn.href || btn.getAttribute('href') === '#') return;
+      const ok = confirm('Continue?');
+      if (!ok) e.preventDefault();
+    });
+  });
+</script>
+
+        <footer>
+            <p>Eaglex data plotter &copy; 2026 | All rights reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Slide navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slidesContainer = document.getElementById('slidesContainer');
+            const navDots = document.getElementById('navDots');
+            const slides = document.querySelectorAll('.slide');
+
+            // Create navigation dots
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    slidesContainer.scrollTo({
+                        left: index * slidesContainer.offsetWidth,
+                        behavior: 'smooth'
+                    });
+                });
+                navDots.appendChild(dot);
+            });
+
+            // Update active dot on scroll
+            slidesContainer.addEventListener('scroll', () => {
+                const scrollPos = slidesContainer.scrollLeft;
+                const slideWidth = slidesContainer.offsetWidth;
+                const currentIndex = Math.round(scrollPos / slideWidth);
+
+                document.querySelectorAll('.dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            });
+
+            // Auto-advance slides (optional)
+            let currentSlide = 0;
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                slidesContainer.scrollTo({
+                    left: currentSlide * slidesContainer.offsetWidth,
+                    behavior: 'smooth'
+                });
+            }, 8000);
+        });
+    </script>
+</body>
+
+</html>
